@@ -10,11 +10,11 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'محصولات',
-      path: '/second-page',
+      path: '/add-product',
       icon: 'mdi:email-outline',
     },
     {
-      path: '/acl',
+      path: '/instagram',
       action: 'read',
       subject: 'acl-page',
       title: 'محصولات اینستاگرام ',
