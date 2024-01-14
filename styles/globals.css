@@ -1,6 +1,13 @@
+@font-face {
+  font-family: IranSans;
+  src: url('/src/assets/IRANSans/IRANSansWeb\(FaNum\).woff2');
+  src: url('/src/assets/IRANSans/IRANSansWeb\(FaNum\).eot');
+  src: url('/src/assets/IRANSans/IRANSansWeb\(FaNum\).woff');
+}
 html,
 body {
   min-height: 100%;
+
 }
 
 #__next {
@@ -8,7 +15,7 @@ body {
 }
 
 code {
-  font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+  font-family: 'IranSans', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
   padding: 0.1rem 0.4rem;
   font-size: 90%;
