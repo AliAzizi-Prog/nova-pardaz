@@ -43,11 +43,13 @@
     "date-fns": "2.29.3",
     "draft-js": "0.11.7",
     "firebase": "9.13.0",
+    "formik": "^2.4.5",
     "i18next": "22.0.4",
     "i18next-browser-languagedetector": "7.0.0",
     "i18next-http-backend": "2.0.0",
     "jsonwebtoken": "8.5.1",
     "keen-slider": "6.8.3",
+    "mui-file-input": "^4.0.3",
     "next": "^13.0.0",
     "nprogress": "0.2.0",
     "payment": "2.4.6",
@@ -69,7 +71,8 @@
     "recharts": "2.1.16",
     "stylis": "4.1.3",
     "stylis-plugin-rtl": "2.1.1",
-    "yup": "0.32.11"
+    "use-immer": "^0.9.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@iconify/iconify": "3.0.0",
