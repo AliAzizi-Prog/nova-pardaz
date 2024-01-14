@@ -17,18 +17,16 @@ const [product, setProduct] = useState()
     }
   );
 
-  // const postDataHandler = () =>{
-  //   postProductData({
-  //     body:{
-  //       name:name,
-  //       image:image,
-  //     }
-  //   })
-  // }
+  const postDataHandler = (body) =>{
+    postProductData({
+      body
+    })
+  }
 
   return {
     product,
     postProductDataLoading,
+    postProductData
 
   };
 };
