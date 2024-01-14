@@ -49,10 +49,10 @@ type ThemeConfig = {
 
 const themeConfig: ThemeConfig = {
   // ** Layout Configs
-  templateName: 'Materialize' /* App Name */,
+  templateName: 'nova pardaz' /* App Name */,
   layout: 'vertical' /* vertical | horizontal */,
   mode: 'light' as Mode /* light | dark | semi-dark /*! Note: semi-dark value will only work for Vertical Layout */,
-  direction: 'ltr' /* ltr | rtl */,
+  direction: 'rtl' /* ltr | rtl */,
   skin: 'default' /* default | bordered */,
   contentWidth: 'boxed' /* full | boxed */,
   footer: 'static' /* fixed | static | hidden */,
