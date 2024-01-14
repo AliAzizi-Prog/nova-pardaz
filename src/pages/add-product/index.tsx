@@ -10,13 +10,16 @@ import useCreateProduct from 'src/hooks/useCreateProduct'
 import useGetCategories from 'src/hooks/useCategories'
 import useGetTags from 'src/hooks/useGetTags'
 // import { MuiFileInput } from 'mui-file-input'
+import { CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material'
+import { Card } from '@mui/material'
+import useGetProduct from 'src/hooks/useGetProduct'
 
-const SecondPage = () => {
+const AddProduct = () => {
   const [open, setOpen] = useState<boolean>(false)
   const { postProductData, postProductDataLoading } = useCreateProduct()
   const { fetchCategories, categories, fetchCategoriesLoading } = useGetCategories()
   const { tags, fetchTagsLoading } = useGetTags()
-
+  const { allProducts, fetchAllProduct } = useGetProduct()
   const handleClickOpen = () => setOpen(true)
 
   const required = 'این فیلد اجباریه'
@@ -53,6 +56,7 @@ const SecondPage = () => {
       postProductData(values).then(() => {
         formik.resetForm()
         handleClose()
+        fetchAllProduct()
       })
 
       // Handle form submission here
@@ -235,12 +239,44 @@ const SecondPage = () => {
           </DialogActions>
         </form>
       </Dialog>
+      <CustomGrid container spacing={6}>
+        {allProducts?.map((data, index): any => {
+          return (
+            <Grid item xs={6}>
+              <Card sx={{ maxWidth: 345 }} key={index}>
+                <CardMedia component='img' alt='product image' height='140' image={data?.image} />
+                <CardContent>
+                  <Typography gutterBottom variant='h5' component='div'>
+                    {data?.name}
+                  </Typography>
+                  <Typography variant='body2' color='text.secondary'>
+                    {data?.shortDescription}
+                  </Typography>
+                  <Typography color='text.secondary'>{data?.price} تومان</Typography>
+                </CardContent>
+                <CardActions>
+                  <Button variant='contained' color='error' size='small'>
+                    حذف
+                  </Button>
+                  <Button variant='contained' size='small'>
+                    {' '}
+                    ویرایش
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          )
+        })}
+      </CustomGrid>
     </>
   )
 }
 
-export default SecondPage
+export default AddProduct
 
 const CTextField = styled(TextField)`
   margin: 1rem 0;
+`
+const CustomGrid = styled(Grid)`
+  padding: 5rem 0;
 `
