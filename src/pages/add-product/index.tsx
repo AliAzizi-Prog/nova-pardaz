@@ -19,11 +19,18 @@ const SecondPage = () => {
 
   const handleClickOpen = () => setOpen(true)
 
+  const required = 'این فیلد اجباریه'
+
   const validationSchema = Yup.object({
     // Define your validation rules here
-    name: Yup.string().required('Name is required'),
-    price: Yup.number().required('Price is required').positive('Price must be a positive number'),
-    shortDescription: Yup.string().required('shortDescription is required')
+    name: Yup.string().required(required),
+    price: Yup.number().required(required).positive('Price must be a positive number'),
+    discount: Yup.number().required(required).positive('Price must be a positive number'),
+    shortDescription: Yup.string().required(required),
+    longDescription: Yup.string().required(required),
+    tags: Yup.array().required(required),
+    categories: Yup.array().required(required),
+    image: Yup.string().required(required)
   })
   const handleClose = () => setOpen(false)
   const formik = useFormik({
@@ -37,7 +44,7 @@ const SecondPage = () => {
       tags: [],
       categories: []
     },
-    // validationSchema: validationSchema,
+    validationSchema: validationSchema,
     onSubmit: async values => {
       console.log(values)
       values.categories = values.categories.map(v => v.id)
@@ -163,7 +170,7 @@ const SecondPage = () => {
               type='text'
               label='توضیح کوتاه'
             />
-            <TextareaAutosize
+            <CTextField
               minRows={3}
               maxRows={10}
               placeholder='توضیحات کامل'
