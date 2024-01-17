@@ -1,17 +1,23 @@
 // ** MUI Imports
-import { Autocomplete, TextareaAutosize, styled } from '@mui/material'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Input } from '@mui/material'
-import * as React from 'react'
+import {
+  Autocomplete,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  styled,
+  TextField
+} from '@mui/material'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import { useState } from 'react'
-import useCreateProduct from 'src/hooks/useCreateProduct'
 import useGetCategories from 'src/hooks/useCategories'
+import useCreateProduct from 'src/hooks/useCreateProduct'
 import useGetTags from 'src/hooks/useGetTags'
 // import { MuiFileInput } from 'mui-file-input'
-import { CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material'
-import { Card } from '@mui/material'
+import { Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material'
 import useGetProduct from 'src/hooks/useGetProduct'
 
 const AddProduct = () => {
@@ -27,33 +33,45 @@ const AddProduct = () => {
   const validationSchema = Yup.object({
     // Define your validation rules here
     name: Yup.string().required(required),
-    price: Yup.number().required(required).positive('Price must be a positive number'),
-    discount: Yup.number().required(required).positive('Price must be a positive number'),
+    // price: Yup.number().required(required).positive('Price must be a positive number'),
+    // discount: Yup.number().required(required).positive('Price must be a positive number'),
     shortDescription: Yup.string().required(required),
     longDescription: Yup.string().required(required),
     tags: Yup.array().required(required),
     categories: Yup.array().required(required),
-    image: Yup.string().required(required)
+    min_quantity: Yup.number()
+    // image: Yup.string().required(required)
   })
   const handleClose = () => setOpen(false)
   const formik = useFormik({
     initialValues: {
       name: '',
-      price: '',
+      price: 0,
       shortDescription: '',
       longDescription: '',
       image: '',
-      discount: '',
+      discount: 0,
       tags: [],
-      categories: []
+      categories: [],
+      min_quantity: 0,
+      max_quantity: 0,
+      available_quantity: 0
     },
     validationSchema: validationSchema,
     onSubmit: async values => {
       console.log(values)
       values.categories = values.categories.map(v => v.id)
       values.tags = values.tags.map(v => v.id)
+      const filteredFormValues = Object.keys(values).reduce((acc, key) => {
+        const value = values[key]
+        if (value !== '' && value !== null && value !== undefined) {
+          acc[key] = value
+        }
+        return acc
+      }, {})
+      console.log(filteredFormValues)
       // values.img = base64Image
-      postProductData(values).then(() => {
+      postProductData(filteredFormValues).then(() => {
         formik.resetForm()
         handleClose()
         fetchAllProduct()
@@ -187,6 +205,50 @@ const AddProduct = () => {
               autoFocus
               fullWidth
               type='text'
+            />
+            <CTextField
+              name='discount'
+              value={formik.values.discount}
+              {...inputProps}
+              error={formik.touched.discount && Boolean(formik.errors.discount)}
+              helperText={formik.touched.discount && formik.errors.discount}
+              autoFocus
+              fullWidth
+              type='number'
+              label='تخفیف'
+            />
+            <CTextField
+              name='max_quantity'
+              value={formik.values.max_quantity}
+              {...inputProps}
+              error={formik.touched.max_quantity && Boolean(formik.errors.max_quantity)}
+              helperText={formik.touched.max_quantity && formik.errors.max_quantity}
+              autoFocus
+              fullWidth
+              type='number'
+              label=' حداکثر تعداد'
+            />
+            <CTextField
+              name='min_quantity'
+              value={formik.values.min_quantity}
+              {...inputProps}
+              error={formik.touched.min_quantity && Boolean(formik.errors.min_quantity)}
+              helperText={formik.touched.min_quantity && formik.errors.min_quantity}
+              autoFocus
+              fullWidth
+              type='number'
+              label='کمترین تعداد'
+            />
+            <CTextField
+              name='available_quantity'
+              value={formik.values.available_quantity}
+              {...inputProps}
+              error={formik.touched.available_quantity && Boolean(formik.errors.available_quantity)}
+              helperText={formik.touched.available_quantity && formik.errors.available_quantity}
+              autoFocus
+              fullWidth
+              type='number'
+              label='تعداد در دسترس'
             />
             <Autocomplete
               label={'برچسب'}
